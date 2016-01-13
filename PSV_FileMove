@@ -1,0 +1,34 @@
+Sub PSV_FileMove()
+'
+' PSV_WBTest Macro
+'
+
+'
+Dim strFile As String
+Dim srcFolder As String
+Dim endFolder As String
+Dim filedate As Variant
+
+filedate = InputBox("Write the next date needed (as seen on PSV File)")
+'//To filter for .xlsx files, change "*.*" to "*.xlsx"
+filenamedate = filedate & "-" & filedate & ".csv"
+
+'//Change the path to the source folder, accordingly
+srcFolder = "C:\Users\breifers\Desktop\PSV"
+'//Change the path to the destination folder, accordingly
+endFolder = "C:\Users\breifers\Desktop\PSV\completed"
+
+    If Right(srcFolder, 1) <> "\" Then srcFolder = srcFolder & "\"
+    If Right(endFolder, 1) <> "\" Then endFolder = endFolder & "\"
+  
+    strFile = Dir(srcFolder & "Analytics*" & filenamedate)
+    
+    Do While Len(strFile) > 0
+        Cnt = Cnt + 1
+        Name srcFolder & strFile As endFolder & strFile
+        strFile = Dir
+    Loop
+    
+    MsgBox Cnt & " file(s) from " & filedate & " have been transfered to " & endFolder, vbInformation
+        
+End Sub
