@@ -1,0 +1,70 @@
+Sub PSV_WBTest()
+'
+' PSV_WBTest Macro
+'
+
+'
+Dim com As String
+Dim net As String
+Dim email As String
+Dim myPath As String
+Dim filedate As Variant
+
+filedate = InputBox("Write the next date needed (as seen on PSV File)")
+filenamedate = filedate & "-" & filedate & ".csv"
+myPath = "C:\Users\breifers\Desktop\PSV"
+com = Dir(myPath & "\Analytics www.peoplesearch.com*" & filenamedate)
+net = Dir(myPath & "\Analytics www.peoplesearch.net*" & filenamedate)
+email = Dir(myPath & "\Analytics www.emailsearch.com*" & filenamedate)
+
+    If email <> "" Then
+        Workbooks.Open Filename:=myPath & "\" & email
+        Cells.Select
+        Selection.Copy
+        Windows("PSV_Report_2015_Template.xlsx").Activate
+        Sheets("Analytics_www emailsearch com_").Select
+        Range("A1").Select
+        ActiveSheet.Paste
+'close open csv file
+        Windows(email).Activate
+        Application.CutCopyMode = False
+        ActiveWorkbook.Close
+    Else
+        MsgBox ("No email file")
+    End If
+    
+    If com <> "" Then
+        Workbooks.Open Filename:=myPath & "\" & com
+        Cells.Select
+        Selection.Copy
+        Windows("PSV_Report_2015_Template.xlsx").Activate
+        Sheets("Analytics_www peoplesearch com_").Select
+        Range("A1").Select
+        ActiveSheet.Paste
+'close open csv file
+        Windows(com).Activate
+        Application.CutCopyMode = False
+        ActiveWorkbook.Close False
+    Else
+        MsgBox ("No com file")
+    End If
+    
+    If net <> "" Then
+        Workbooks.Open Filename:=myPath & "\" & net
+        Cells.Select
+        Selection.Copy
+        Windows("PSV_Report_2015_Template.xlsx").Activate
+        Sheets("Analytics_www peoplesearch net_").Select
+        Range("A1").Select
+        ActiveSheet.Paste
+'close open csv file
+        Windows(net).Activate
+        Application.CutCopyMode = False
+        ActiveWorkbook.Close False
+    Else
+        MsgBox ("No net file")
+    End If
+        
+    Sheets("formulas").Select
+    
+End Sub
