@@ -1,0 +1,21 @@
+Sub PSV_Paste()
+'
+' PSV_Paste Macro
+'
+
+'
+
+    Sheets("formulas").Select
+    Range("G3:I3").Select
+    Selection.Copy
+    ActiveSheet.Previous.Select
+    Range("B33").Select
+    If ActiveCell.Value = Empty Then
+        Selection.End(xlUp).Select
+        ActiveCell.Offset(1, 0).Select
+        Selection.PasteSpecial Paste:=xlPasteValues, Operation:=xlNone, SkipBlanks _
+        :=False, Transpose:=False
+        Else
+        MsgBox "Start New Month"
+    End If
+End Sub
