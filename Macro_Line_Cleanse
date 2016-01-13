@@ -1,0 +1,18 @@
+Sub Line_Item_Cleanse()
+'
+' Line_Item_Cleanse Macro
+' Remove '*Bid_' and '-PR' from the 'Line Item' column
+'
+
+'
+    Cells.Find(What:="line item", After:=ActiveCell, LookIn:=xlFormulas, _
+        LookAt:=xlPart, SearchOrder:=xlByRows, SearchDirection:=xlNext, _
+        MatchCase:=False, SearchFormat:=False).Activate
+    Range(Selection, Selection.End(xlDown)).Select
+    Selection.Replace What:="*bid_", Replacement:="", LookAt:=xlPart, _
+        SearchOrder:=xlByRows, MatchCase:=False, SearchFormat:=False, _
+        ReplaceFormat:=False
+    Selection.Replace What:="-pr", Replacement:="", LookAt:=xlPart, _
+        SearchOrder:=xlByRows, MatchCase:=False, SearchFormat:=False, _
+        ReplaceFormat:=False
+End Sub
