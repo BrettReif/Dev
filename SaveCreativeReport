@@ -1,0 +1,17 @@
+Public Sub SaveCreativeReport(itm As Outlook.MailItem)
+'
+'
+'
+
+'
+
+Dim objAtt As Outlook.Attachment
+Dim saveFolder As String
+saveFolder = "C:\Users\breifers\Desktop\Creative Report"
+     For Each objAtt In itm.Attachments
+        If InStr(objAtt.DisplayName, ".csv") Then
+          objAtt.SaveAsFile saveFolder & "\" & objAtt.DisplayName
+        End If
+          Set objAtt = Nothing
+     Next
+End Sub
