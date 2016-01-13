@@ -1,0 +1,66 @@
+Sub PSV_3OpenFileSync()
+'
+' PSV_3OpenFileSync Macro
+'
+
+'
+Dim com As String
+Dim net As String
+Dim email As String
+Dim myPath As String
+Dim fileType As String
+
+Set com = "*peoplesearch.com*"
+Set net = "*peoplesearch.net*"
+Set email = "*emailsearch*"
+Set myPath = "C:\Users\breifers\Desktop\PSV"
+Set fileType = ".csv"
+
+    Workbooks.Open Filename:=myPath & email & fileType
+    Cells.Select
+    Selection.Copy
+    Windows("PSV_Report_2015_Template.xlsx").Activate
+    Sheets("Analytics_www emailsearch com_").Select
+    Range("A1").Select
+    ActiveSheet.Paste
+    
+comFound = Dir("C:\Users\breifers\Desktop\PSV" & "*www.peoplesearch.com*.csv")    'the first one found
+If comFound <> "" Then
+    Workbooks.Open Filename:="C:\Users\breifers\Desktop\PSV" & "\" & comFound
+End If
+    
+    Cells.Select
+    Selection.Copy
+    Windows("PSV_Report_2015_Template.xlsx").Activate
+    Sheets("Analytics_www peoplesearch com_").Select
+    Range("A1").Select
+    ActiveSheet.Paste
+    
+netFound = Dir("C:\Users\breifers\Desktop\PSV" & "*www.peoplesearch.net*.csv")    'the first one found
+If netFound <> "" Then
+    Workbooks.Open Filename:="C:\Users\breifers\Desktop\PSV" & "\" & netFound
+End If
+    
+    Cells.Select
+    Selection.Copy
+    Windows("PSV_Report_2015_Template.xlsx").Activate
+    Sheets("Analytics_www peoplesearch net_").Select
+    Range("A1").Select
+    ActiveSheet.Paste
+    
+    Sheets("formulas").Select
+    Range("G3:I3").Select
+    Selection.Copy
+    ActiveSheet.Previous.Select
+    Range("B33").Select
+    If ActiveCell.Value = Empty Then
+        Selection.End(xlUp).Select
+        ActiveCell.Offset(1, 0).Select
+        Selection.PasteSpecial Paste:=xlPasteValues, Operation:=xlNone, SkipBlanks _
+        :=False, Transpose:=False
+        Else
+        MsgBox "Start New Month"
+    End If
+End Sub
+
+
